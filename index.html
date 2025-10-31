@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoosh Tech Portal</title>
+	<link rel="icon" href="assets/logo/favicon.png?v=2" type="image/png" >
+    <style>
+      :root{
+        --brand:#28C76F;
+        --overlayMaxWidth: 700px;
+        --overlayPad: clamp(12px, 3vw, 24px);
+        --overlayFont: clamp(14px, 2.2vw, 18px);
+      }
+
+      html, body {
+        height: 100%;
+        margin: 0;
+        overflow: auto; 
+      }
+
+      /* Default (mobile & small screens): show image at natural size (no scaling) */
+      .image-wrapper img {
+        display: block;
+        max-width: none;
+        height: auto;
+      }
+
+      /* Desktop: fit width-wise, scroll height-wise */
+      @media (min-width: 992px) {
+        .image-wrapper img {
+          width: 100vw;
+          height: auto;
+          max-width: none;
+        }
+        /* Avoid accidental horizontal scroll when width is pinned to 100vw */
+        body { overflow-x: hidden; }
+      }
+
+      .image-wrapper { position: relative; }
+
+      .cloud-overlay{
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        z-index: 1000;
+        pointer-events: none;
+      }
+
+      .notice-box{
+        pointer-events: auto;
+        background: var(--brand);
+        color: #FF0000; 
+        width: min(92vw, var(--overlayMaxWidth));
+        padding: var(--overlayPad);
+        border-radius: 14px;
+        box-shadow: 0 12px 28px rgba(0,0,0,.8);
+        text-align: center;
+        font: 500 var(--overlayFont)/1.45 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        position: relative;
+        animation: fadeIn .25s ease-out;
+      }
+      .notice-box .emph{ font-weight: 700; }
+
+      .notice-close{
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 36px;
+        height: 36px;
+        border: 0;
+        border-radius: 999px;
+        background: rgba(255,255,255,.18);
+        color: #fff;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+      }
+      .notice-close:hover{ background: rgba(255,255,255,.28); }
+      .notice-close:focus{ outline: 2px solid rgba(255,255,255,.6); outline-offset: 2px; }
+
+	  .white-text {
+        color: white;
+      }
+
+      @media (max-width: 360px){
+        .notice-box{ padding: clamp(10px, 3vw, 18px); }
+      }
+      @keyframes fadeIn { from{opacity:0; transform: translateY(6px);} to{opacity:1; transform: translateY(0);} }
+      @media (prefers-reduced-motion: reduce){ .notice-box{ animation: none; } }
+    </style>
+</head>
+<body>
+
+  <div class="image-wrapper">
+    <img src="assets/images/hoosh_tech_portal_mock.png" alt="Upcoming Hoosh Tech Portal's main page mockup" />
+  </div>
+
+  <div class="cloud-overlay" id="announcement">
+    <div class="notice-box" role="dialog" aria-label="Product announcement">
+      <button class="notice-close" aria-label="Dismiss announcement" title="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+        Our <span class="emph">Hoosh Tech Portal</span> is currently in its final development and testing,
+        with over 70% of the platform already fully implemented. We are on track for a full launch by the end of March 2026.
+        In the meantime, feel free to <a href="https://hooshtechllc.com/index.html#contact-us">Contact Us</a> for a personalized demo or to ask any questions —
+        we’d love to hear from you.<br>
+		<span class="white-text">
+		    Explore all features of the product at the <a href="https://hooshtechllc.com">Hoosh Tech LLC</a> website.
+		</span>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('click', function(e){
+      if(e.target.closest('.notice-close')){
+        const el = document.getElementById('announcement');
+        if(el) el.remove();
+      }
+    });
+  </script>
+
+</body>
+</html>
+
